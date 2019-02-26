@@ -1,0 +1,60 @@
+Sub stockvolume()
+
+
+Dim ws As Worksheet
+
+For Each ws In Worksheets
+
+
+Dim WorksheetName As String
+
+'Last Row
+LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+WorksheetName = ws.Name
+
+        
+Dim Summary_Table_Row As Integer
+Summary_Table_Row = 2
+
+'Creating Headers for new columns
+Range("I1").Value = "Ticker"
+Range("J1").Value = "Total Volume"
+'Bolding font
+Cells(1, 9).Font.Bold = True
+Cells(1, 10).Font.Bold = True
+
+
+
+For I = 2 To LastRow
+    
+    If Cells(I + 1, 1).Value <> Cells(I, 1).Value Then
+    
+        Stock_Name = Cells(I, 1).Value
+        Stock_Vol = Stock_Vol + Cells(I, 7).Value
+        
+        Stock_Name = Stock_Name + Cells(I, 1).Value
+    
+        Range("i" & Summary_Table_Row).Value = Stock_Name
+        Range("j" & Summary_Table_Row).Value = Stock_Vol
+    
+        Summary_Table_Row = Summary_Table_Row + 1
+    
+        Stock_Vol = 0
+    
+            Else
+    
+            Stock_Vol = Stock_Vol + Cells(I, 3).Value
+       
+        End If
+        
+            For j = 9 To 10
+            
+            Next j
+
+    
+    Next I
+
+Next ws
+
+End Sub
